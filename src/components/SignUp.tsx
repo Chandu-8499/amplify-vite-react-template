@@ -1,12 +1,11 @@
 import React, { useState } from 'react';
-import { AuthContext } from '../auth';
+import { useAuth } from '../auth';
 
 const SignUp: React.FC = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
-
-  const { handleSignUp } = useContext(AuthContext);
+  const { handleSignUp } = useAuth();
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
