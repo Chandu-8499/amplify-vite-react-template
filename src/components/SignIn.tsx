@@ -4,14 +4,15 @@ import { useAuth } from '../auth';
 const SignIn: React.FC = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
+  const [error, setError] = useState<string>('');
   const { handleSignIn } = useAuth();
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     try {
       await handleSignIn(username, password);
-    } catch (error) {
+    } catch (err) {
+      const error = err as Error;
       setError(error.message);
     }
   };
