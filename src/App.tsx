@@ -1,17 +1,19 @@
-import React from 'react';
-import { AuthProvider } from './auth';
-import SignIn from './components/SignIn';
-import SignUp from './components/SignUp';
+import { Authenticator } from '@aws-amplify/ui-react';
+import { Amplify } from 'aws-amplify';
+import '@aws-amplify/ui-react/styles.css';
+import outputs from "../amplify_outputs.json";
 
-const App: React.FC = () => {
+Amplify.configure(outputs);
+
+export default function App() {
   return (
-    <AuthProvider>
-      <div>
-        <SignIn />
-        <SignUp />
-      </div>
-    </AuthProvider>
+    <Authenticator>
+      {({ signOut, user }) => (
+        <main>
+          <h1>Hello {user?.username}</h1>
+          <button onClick={signOut}>Sign out</button>
+        </main>
+      )}
+    </Authenticator>
   );
-};
-
-export default App;
+}
